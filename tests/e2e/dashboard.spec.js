@@ -3,12 +3,12 @@ import { expect, test } from "@playwright/test";
 test("dashboard shows tracker, exports, reminders, and SEEK capture", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: "Tracked Jobs" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Tracked Jobs", exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Export CSV" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Export PDF" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Calendar" })).toBeVisible();
-  await expect(page.getByText("SEEK Capture")).toBeVisible();
-  expect(await page.locator(".priority-job").count()).toBeGreaterThan(0);
+  await expect(page.getByText("SEEK Capture", { exact: true })).toBeVisible();
+  await expect(page.locator(".priority-job").first()).toBeVisible();
 });
 
 test("SEEK listing text can be preview-parsed", async ({ page }) => {
@@ -25,9 +25,11 @@ This role accepts international students.
   `);
   await page.getByRole("button", { name: "Preview Parse" }).click();
 
-  await expect(page.getByText("Graduate Cloud Engineer")).toBeVisible();
-  await expect(page.getByText("Example Cloud Services")).toBeVisible();
-  await expect(page.getByText("2026-07-31")).toBeVisible();
+  const preview = page.locator(".parse-preview");
+  await expect(preview).toBeVisible();
+  await expect(preview.getByText("Graduate Cloud Engineer", { exact: true })).toBeVisible();
+  await expect(preview.getByText("Example Cloud Services", { exact: true })).toBeVisible();
+  await expect(preview.getByText("2026-07-31", { exact: true })).toBeVisible();
 });
 
 test("each main route shows one focused page", async ({ page }) => {
@@ -68,5 +70,5 @@ test("draft generation exposes reusable copy actions", async ({ page }) => {
 
   await expect(page.getByRole("button", { name: "Copy bullets" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Copy letter" })).toBeVisible();
-  await expect(page.getByText("Cover-letter draft")).toBeVisible();
+  await expect(page.getByText("Cover-letter draft", { exact: true })).toBeVisible();
 });
