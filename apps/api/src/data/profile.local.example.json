@@ -1,0 +1,31 @@
+{
+  "name": "Your private local name",
+  "publicSignature": "Your preferred cover-letter signature",
+  "headline": "Your private local headline",
+  "location": "Brisbane, Australia",
+  "workRights": [
+    "Configure locally"
+  ],
+  "preferredLocations": [
+    "Brisbane",
+    "Hybrid",
+    "Remote"
+  ],
+  "degrees": [
+    "Bachelor of Information Technology"
+  ],
+  "skills": [
+    "Python",
+    "JavaScript",
+    "React",
+    "AWS"
+  ],
+  "experienceSignals": [
+    "Add private experience evidence locally."
+  ],
+  "targetRoles": [
+    "Graduate Software Engineer",
+    "Cloud Engineer Intern"
+  ]
+}
+

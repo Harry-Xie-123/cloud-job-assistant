@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+
+      - name: Check public repository data
+        run: node scripts/check-public-data.mjs
+
+      - name: Install
+        run: pnpm install --frozen-lockfile=false
+
+      - name: Test API
+        run: pnpm test
+
+      - name: Build React dashboard
+        run: pnpm build
+
+      - name: Verify production assets
+        run: pnpm verify:web
+
+      - name: Install browser for E2E
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Test production dashboard
+        run: pnpm exec playwright test
+
+      - name: Build production Docker image
+        run: docker build --tag cloud-job-assistant:ci .
+
+      - name: Smoke test Docker image
+        run: |
+          container_id=$(docker run --detach --publish 8080:8080 cloud-job-assistant:ci)
+          trap 'docker rm --force "$container_id"' EXIT
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:8080/api/health > /dev/null; then
+              curl --fail --silent http://127.0.0.1:8080/ | grep --quiet 'id="root"'
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs "$container_id"
+          exit 1

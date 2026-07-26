@@ -1,0 +1,93 @@
+@import "../../api/public/styles.css";
+
+#root {
+  min-height: 100vh;
+}
+
+button svg,
+.button-link svg,
+.nav-list svg {
+  flex: 0 0 auto;
+}
+
+.nav-list a {
+  gap: 10px;
+}
+
+.metric-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.metric-topline svg {
+  color: var(--quiet);
+}
+
+.metric-match .metric-topline svg {
+  color: var(--green);
+}
+
+.metric-risk .metric-topline svg {
+  color: var(--amber);
+}
+
+.metric-applied .metric-topline svg {
+  color: var(--teal);
+}
+
+.input-icon {
+  position: relative;
+  display: block;
+}
+
+.input-icon svg {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 11px;
+  color: var(--quiet);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.input-icon input {
+  padding-left: 36px;
+}
+
+.login-heading {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.login-heading svg {
+  margin-top: 2px;
+  color: var(--blue);
+}
+
+.login-heading h2,
+.login-heading .eyebrow {
+  margin-bottom: 0;
+}
+
+.empty-state {
+  margin: 16px;
+}
+
+.jobs-list > .empty-state,
+.priority-list > .empty-state,
+.reminders-list > .empty-state,
+.compact-job-list > .empty-state {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 20px 16px;
+}
+
+@media (max-width: 860px) {
+  .nav-list a {
+    gap: 7px;
+  }
+}

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A private graduate job tracker for matching, deadlines, application status, and tailored drafts.">
+    <meta name="theme-color" content="#f4f7fa">
+    <title>Cloud Job Assistant</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">Cloud Job Assistant</p>
+          <h1>Job Match</h1>
+          <p>Graduate and internship tracker</p>
+        </div>
+
+        <nav class="nav-list" aria-label="Main pages">
+          <a href="#dashboard" data-route="dashboard">Overview</a>
+          <a href="#jobs" data-route="jobs">Jobs</a>
+          <a href="#import" data-route="import">Import</a>
+          <a href="#draft" data-route="draft">Drafts</a>
+          <a href="#seek" data-route="seek">SEEK</a>
+          <a href="#profile" data-route="profile">Profile</a>
+        </nav>
+
+        <div class="profile-panel" id="profilePanel">Loading profile...</div>
+      </aside>
+
+      <main class="workspace">
+        <header class="page-header">
+          <div>
+            <p class="eyebrow" id="pageEyebrow">Overview</p>
+            <h2 id="pageTitle">Application Control Room</h2>
+            <p id="pageDescription">Track roles, focus on the strongest matches, and keep deadlines visible.</p>
+          </div>
+          <div class="header-actions" id="dashboardActions">
+            <button id="refreshButton" type="button">Refresh</button>
+            <button id="exportButton" type="button" class="secondary">Export CSV</button>
+            <button id="exportPdfButton" type="button" class="secondary">Export PDF</button>
+            <button id="exportCalendarButton" type="button" class="secondary">Calendar</button>
+          </div>
+        </header>
+
+        <div id="appMessage" class="app-message" hidden></div>
+
+        <section class="view-page" id="page-dashboard" data-page="dashboard">
+          <section class="summary-grid" aria-label="Application summary">
+            <div class="metric metric-saved">
+              <span id="savedCount">0</span>
+              <p>Saved roles</p>
+            </div>
+            <div class="metric metric-match">
+              <span id="applyCount">0</span>
+              <p>Strong matches</p>
+            </div>
+            <div class="metric metric-risk">
+              <span id="riskCount">0</span>
+              <p>Work-right checks</p>
+            </div>
+            <div class="metric metric-applied">
+              <span id="appliedCount">0</span>
+              <p>Applied</p>
+            </div>
+          </section>
+
+          <section class="dashboard-grid">
+            <section class="panel priority-panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Tracked Jobs</h3>
+                  <p>Best matches first, with quick draft access.</p>
+                </div>
+                <span id="dashboardJobCount">0 roles</span>
+              </div>
+              <div id="priorityJobsList" class="priority-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Next Actions</h3>
+                  <p>Deadlines and follow-ups that need attention.</p>
+                </div>
+                <span id="reminderCount">0 active</span>
+              </div>
+              <div id="remindersList" class="reminders-list"></div>
+            </section>
+
+            <section class="panel action-panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Quick Capture</h3>
+                  <p>Use SEEK search, then capture a listing you choose.</p>
+                </div>
+                <span id="dashboardSeekMode">Link mode</span>
+              </div>
+              <div class="action-grid">
+                <a id="dashboardBookmarkletLink" class="button-link" href="#">SEEK Capture</a>
+                <a class="button-link secondary" href="#import" data-route="import">Import Job</a>
+                <a class="button-link secondary" href="#jobs" data-route="jobs">Review Jobs</a>
+              </div>
+            </section>
+          </section>
+        </section>
+
+        <section class="view-page" id="page-jobs" data-page="jobs" hidden>
+          <section class="toolbar" aria-label="Job filters">
+            <div class="toolbar-fields">
+              <label for="query">
+                Search
+                <input id="query" type="search" placeholder="Company, role, skill">
+              </label>
+              <label for="statusFilter">
+                Status
+                <select id="statusFilter">
+                  <option value="">All</option>
+                  <option value="saved">Saved</option>
+                  <option value="shortlisted">Shortlisted</option>
+                  <option value="applied">Applied</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </label>
+            </div>
+            <div class="toolbar-actions">
+              <button id="jobsRefreshButton" type="button">Refresh</button>
+              <button id="jobsExportButton" type="button" class="secondary">Export CSV</button>
+              <button id="jobsExportPdfButton" type="button" class="secondary">Export PDF</button>
+              <button id="jobsExportCalendarButton" type="button" class="secondary">Calendar</button>
+            </div>
+          </section>
+
+          <section class="job-column">
+            <div class="section-heading">
+              <div>
+                <h3>Tracked Jobs</h3>
+                <p>Filter, score, open, draft, and update application status.</p>
+              </div>
+              <span id="jobCount">0 roles</span>
+            </div>
+            <div id="jobsList" class="jobs-list"></div>
+          </section>
+        </section>
+
+        <section class="view-page" id="page-import" data-page="import" hidden>
+          <section class="split-grid">
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Import SEEK Job</h3>
+                  <p>Paste a SEEK link and listing text. The app parses it locally.</p>
+                </div>
+                <span>SEEK URL</span>
+              </div>
+              <form id="importForm" class="import-form">
+                <label>
+                  SEEK job URL
+                  <input name="sourceUrl" type="url" required placeholder="https://www.seek.com.au/job/...">
+                </label>
+                <label>
+                  Role title
+                  <input name="title" placeholder="Graduate Software Engineer">
+                </label>
+                <label>
+                  Company display name
+                  <input name="company" placeholder="Optional">
+                </label>
+                <label>
+                  SEEK listing text
+                  <textarea name="listingText" rows="8" placeholder="Paste the visible SEEK job text here."></textarea>
+                </label>
+                <div id="parsePreview" class="parse-preview">No listing text parsed yet.</div>
+                <label>
+                  Skills, comma separated
+                  <input name="requiredSkills" placeholder="Optional manual override: React, AWS, SQL">
+                </label>
+                <div class="button-row">
+                  <button id="previewImportButton" type="button" class="secondary">Preview Parse</button>
+                  <button id="fetchSeekButton" type="button" class="secondary">Checking API</button>
+                  <button type="submit">Import From SEEK</button>
+                </div>
+                <p id="fetchSeekHint" class="form-hint">Checking official SEEK API availability.</p>
+              </form>
+            </section>
+
+            <aside class="panel guidance-panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Import Flow</h3>
+                  <p>Clean, legal capture without pretending to have partner access.</p>
+                </div>
+              </div>
+              <ol class="steps-list">
+                <li>Open a role on SEEK or from a company careers page.</li>
+                <li>Paste the URL and visible job text into the form.</li>
+                <li>Preview the parsed fields, then import the role.</li>
+                <li>Review the score in Jobs and generate a tailored draft.</li>
+              </ol>
+            </aside>
+          </section>
+        </section>
+
+        <section class="view-page" id="page-draft" data-page="draft" hidden>
+          <section class="split-grid draft-layout">
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Choose Role</h3>
+                  <p>Select one tracked job and generate tailored application text.</p>
+                </div>
+                <span id="draftJobCount">0 roles</span>
+              </div>
+              <form class="import-form" id="draftSelectForm">
+                <label>
+                  Tracked job
+                  <select id="draftJobSelect"></select>
+                </label>
+                <button id="generateDraftButton" type="button">Generate Draft</button>
+              </form>
+              <div id="draftJobsList" class="compact-job-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Tailored Draft</h3>
+                  <p>CV bullets and cover-letter draft based on your profile and role score.</p>
+                </div>
+                <span id="selectedScore">Select a role</span>
+              </div>
+              <div id="draftPanel" class="draft-panel">
+                <div class="draft-empty">Choose a job to generate CV bullets and a cover-letter draft.</div>
+              </div>
+            </section>
+          </section>
+        </section>
+
+        <section class="view-page" id="page-seek" data-page="seek" hidden>
+          <section class="split-grid">
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <h3>SEEK Link</h3>
+                  <p>Open targeted SEEK searches and capture roles manually.</p>
+                </div>
+                <span id="seekMode">Checking</span>
+              </div>
+              <form id="seekSearchForm" class="import-form">
+                <label>
+                  Keywords
+                  <input name="keywords" placeholder="software engineer intern">
+                </label>
+                <label>
+                  Location
+                  <input name="location" placeholder="Brisbane QLD">
+                </label>
+                <label class="check-row">
+                  <input name="graduateOnly" type="checkbox" checked>
+                  Graduate and intern search
+                </label>
+                <button type="submit">Open SEEK Search</button>
+              </form>
+              <div class="bookmarklet-box">
+                <a id="bookmarkletLink" class="button-link" href="#">Capture Current Job</a>
+                <span>User-approved job capture</span>
+              </div>
+            </section>
+
+            <aside class="panel integration-panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Integration State</h3>
+                  <p>The official API adapter stays ready for future SEEK approval.</p>
+                </div>
+              </div>
+              <div class="status-stack">
+                <div>
+                  <strong>Current mode</strong>
+                  <span id="seekModeDetail">Link mode</span>
+                </div>
+                <div>
+                  <strong>Capture method</strong>
+                  <span>Bookmarklet or pasted listing text</span>
+                </div>
+                <div>
+                  <strong>Official API</strong>
+                  <span id="seekApiDetail">Checking availability</span>
+                </div>
+                <div>
+                  <strong>Compliance</strong>
+                  <span>User-approved import, no hidden bulk scraping</span>
+                </div>
+              </div>
+            </aside>
+          </section>
+        </section>
+
+        <section class="view-page" id="page-profile" data-page="profile" hidden>
+          <section class="split-grid">
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Private Profile</h3>
+                  <p>These fields drive scoring and tailored application drafts.</p>
+                </div>
+                <span id="profileSource">Public seed</span>
+              </div>
+              <form id="profileForm" class="import-form">
+                <label>
+                  Display name
+                  <input name="name" placeholder="Private local name">
+                </label>
+                <label>
+                  Cover-letter signature
+                  <input name="publicSignature" placeholder="Candidate">
+                </label>
+                <label>
+                  Location
+                  <input name="location" placeholder="Brisbane, Australia">
+                </label>
+                <label>
+                  Work rights, comma separated
+                  <input name="workRights" placeholder="Configure locally">
+                </label>
+                <label>
+                  Skills, comma separated
+                  <textarea class="compact-textarea" name="skills" rows="4" placeholder="Python, JavaScript, React, AWS"></textarea>
+                </label>
+                <label>
+                  Target roles, comma separated
+                  <input name="targetRoles" placeholder="Graduate Software Engineer, Cloud Engineer Intern">
+                </label>
+                <button type="submit">Save Private Profile</button>
+              </form>
+            </section>
+
+            <aside class="panel profile-summary-panel">
+              <div class="section-heading">
+                <div>
+                  <h3>Scoring Inputs</h3>
+                  <p>Quick view of what the matcher uses.</p>
+                </div>
+              </div>
+              <div id="profileSnapshot" class="profile-snapshot">Loading profile...</div>
+            </aside>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div id="loginGate" class="login-gate" hidden>
+      <form id="loginForm" class="login-panel">
+        <p class="eyebrow">Private Dashboard</p>
+        <h2>Sign in</h2>
+        <label>
+          Password
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Unlock</button>
+        <p id="loginMessage" class="form-message"></p>
+      </form>
+    </div>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

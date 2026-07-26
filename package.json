@@ -1,0 +1,27 @@
+{
+  "name": "cloud-job-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloud Job Matching and Application Assistant for graduate and internship roles.",
+  "scripts": {
+    "dev": "pnpm --filter @cja/api dev",
+    "check:public": "node scripts/check-public-data.mjs",
+    "test": "pnpm --filter @cja/api test",
+    "build": "pnpm --filter @cja/web build",
+    "verify:web": "node scripts/verify-web-build.mjs",
+    "db:migrate": "pnpm --filter @cja/api db:migrate",
+    "start": "pnpm --filter @cja/api start",
+    "start:production": "node scripts/start-production.mjs",
+    "test:e2e": "pnpm build && pnpm verify:web && playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@11.7.0"
+}

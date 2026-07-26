@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest a focused improvement to the job-search workflow.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User need
+      description: What job-search problem should this solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe the workflow or result, without prescribing implementation details.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Integration boundaries
+      options:
+        - label: This does not require unauthorized scraping or automatic application submission.
+          required: true
+        - label: This does not require committing private candidate data or credentials.
+          required: true

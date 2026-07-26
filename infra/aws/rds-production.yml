@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Production-style RDS PostgreSQL layer for Cloud Job Assistant.
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: cloud-job-assistant
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+  PrivateSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+  AppSecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security group used by the ECS/Fargate API service.
+  DatabaseName:
+    Type: String
+    Default: cloud_job_assistant
+  DatabaseUsername:
+    Type: String
+    Default: app
+  DatabaseInstanceClass:
+    Type: String
+    Default: db.t4g.micro
+  DatabaseAllocatedStorage:
+    Type: Number
+    Default: 20
+
+Resources:
+  DatabaseSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Private subnets for Cloud Job Assistant RDS.
+      SubnetIds: !Ref PrivateSubnetIds
+
+  DatabaseSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow PostgreSQL from the Cloud Job Assistant API service only.
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          SourceSecurityGroupId: !Ref AppSecurityGroupId
+
+  Database:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: Snapshot
+    UpdateReplacePolicy: Snapshot
+    Properties:
+      DBInstanceIdentifier: !Sub "${ProjectName}-postgres"
+      Engine: postgres
+      EngineVersion: "16.4"
+      DBInstanceClass: !Ref DatabaseInstanceClass
+      AllocatedStorage: !Ref DatabaseAllocatedStorage
+      StorageType: gp3
+      DBName: !Ref DatabaseName
+      MasterUsername: !Ref DatabaseUsername
+      ManageMasterUserPassword: true
+      PubliclyAccessible: false
+      DeletionProtection: true
+      BackupRetentionPeriod: 7
+      MultiAZ: false
+      AutoMinorVersionUpgrade: true
+      DBSubnetGroupName: !Ref DatabaseSubnetGroup
+      VPCSecurityGroups:
+        - !Ref DatabaseSecurityGroup
+
+Outputs:
+  DatabaseEndpoint:
+    Description: RDS host to use when composing DATABASE_URL.
+    Value: !GetAtt Database.Endpoint.Address
+  DatabasePort:
+    Value: !GetAtt Database.Endpoint.Port
+  DatabaseName:
+    Value: !Ref DatabaseName
+  DatabaseSecretArn:
+    Description: Managed RDS master credential secret ARN.
+    Value: !GetAtt Database.MasterUserSecret.SecretArn
+  DatabaseSecurityGroupId:
+    Value: !Ref DatabaseSecurityGroup

@@ -1,0 +1,144 @@
+[
+  {
+    "id": "seek-sample-cloud-graduate",
+    "company": "SEEK Sample Employer A",
+    "title": "Graduate Cloud Engineer",
+    "location": "Brisbane",
+    "type": "Graduate",
+    "platform": "SEEK",
+    "sourceUrl": "https://www.seek.com.au/graduate-jobs?keywords=cloud+engineer&where=Brisbane+QLD",
+    "externalApplyUrl": "https://www.seek.com.au/graduate-jobs?keywords=cloud+engineer&where=Brisbane+QLD",
+    "closingDate": "2026-07-31",
+    "startDate": "2027-02-01",
+    "requiredSkills": [
+      "AWS",
+      "Docker",
+      "SQL",
+      "Cloud Security",
+      "Troubleshooting"
+    ],
+    "degreeDisciplines": [
+      "Computer Science",
+      "Information Technology"
+    ],
+    "workRights": [
+      "Check SEEK listing"
+    ],
+    "status": "shortlisted",
+    "notes": "Anonymous sample role. Opens a SEEK search URL; import a real SEEK job URL locally for a direct listing."
+  },
+  {
+    "id": "seek-sample-full-stack-intern",
+    "company": "SEEK Sample Employer B",
+    "title": "Software Engineer Intern",
+    "location": "Brisbane, Hybrid",
+    "type": "Internship",
+    "platform": "SEEK",
+    "sourceUrl": "https://www.seek.com.au/graduate-jobs?keywords=software+engineer+intern&where=Brisbane+QLD",
+    "externalApplyUrl": "https://www.seek.com.au/graduate-jobs?keywords=software+engineer+intern&where=Brisbane+QLD",
+    "closingDate": "2026-08-15",
+    "startDate": "2026-11-01",
+    "requiredSkills": [
+      "React",
+      "Node.js",
+      "JavaScript",
+      "Software Testing",
+      "Git"
+    ],
+    "degreeDisciplines": [
+      "Software Engineering",
+      "Computer Science",
+      "Information Technology"
+    ],
+    "workRights": [
+      "Accepts International"
+    ],
+    "status": "applied",
+    "notes": "Anonymous sample role. Opens a SEEK search URL; import a real SEEK job URL locally for a direct listing."
+  },
+  {
+    "id": "seek-sample-cyber-graduate",
+    "company": "SEEK Sample Employer C",
+    "title": "Cyber Security Graduate",
+    "location": "Brisbane, Sydney, Melbourne",
+    "type": "Graduate",
+    "platform": "SEEK",
+    "sourceUrl": "https://www.seek.com.au/graduate-jobs?keywords=cyber+security+graduate&where=Brisbane+QLD",
+    "externalApplyUrl": "https://www.seek.com.au/graduate-jobs?keywords=cyber+security+graduate&where=Brisbane+QLD",
+    "closingDate": "2026-08-05",
+    "startDate": "2027-02-01",
+    "requiredSkills": [
+      "Cyber Security",
+      "Cloud Security",
+      "IAM",
+      "Risk",
+      "Communication"
+    ],
+    "degreeDisciplines": [
+      "Cyber Security",
+      "Information Technology",
+      "Computer Science"
+    ],
+    "workRights": [
+      "Check SEEK listing"
+    ],
+    "status": "saved",
+    "notes": "Anonymous sample role. Opens a SEEK search URL; import a real SEEK job URL locally for a direct listing."
+  },
+  {
+    "id": "seek-sample-business-analyst-intern",
+    "company": "SEEK Sample Employer D",
+    "title": "Business Analyst Intern",
+    "location": "Brisbane",
+    "type": "Internship",
+    "platform": "SEEK",
+    "sourceUrl": "https://www.seek.com.au/graduate-jobs?keywords=business+analyst+intern&where=Brisbane+QLD",
+    "externalApplyUrl": "https://www.seek.com.au/graduate-jobs?keywords=business+analyst+intern&where=Brisbane+QLD",
+    "closingDate": "2026-07-20",
+    "startDate": "2026-08-01",
+    "requiredSkills": [
+      "Business Analysis",
+      "Process Modelling",
+      "Systems",
+      "Documentation",
+      "Stakeholder Communication"
+    ],
+    "degreeDisciplines": [
+      "Information Technology"
+    ],
+    "workRights": [
+      "Accepts International"
+    ],
+    "status": "saved",
+    "notes": "Anonymous sample role. Opens a SEEK search URL; import a real SEEK job URL locally for a direct listing."
+  },
+  {
+    "id": "seek-sample-automation-intern",
+    "company": "SEEK Sample Employer E",
+    "title": "Software Automation Engineer Intern",
+    "location": "Brisbane",
+    "type": "Internship",
+    "platform": "SEEK",
+    "sourceUrl": "https://www.seek.com.au/graduate-jobs?keywords=software+automation+intern&where=Brisbane+QLD",
+    "externalApplyUrl": "https://www.seek.com.au/graduate-jobs?keywords=software+automation+intern&where=Brisbane+QLD",
+    "closingDate": "2026-08-25",
+    "startDate": "2026-11-01",
+    "requiredSkills": [
+      "Python",
+      "Automation",
+      "System Design",
+      "Validation",
+      "Troubleshooting"
+    ],
+    "degreeDisciplines": [
+      "Software Engineering",
+      "Computer Science",
+      "Information Technology"
+    ],
+    "workRights": [
+      "Check SEEK listing"
+    ],
+    "status": "saved",
+    "notes": "Anonymous sample role. Opens a SEEK search URL; import a real SEEK job URL locally for a direct listing."
+  }
+]

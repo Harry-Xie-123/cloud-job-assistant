@@ -1,0 +1,15 @@
+{
+  "name": "@cja/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "db:migrate": "node src/scripts/migrate.js",
+    "start": "node src/server.js",
+    "test": "node tests/run-tests.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

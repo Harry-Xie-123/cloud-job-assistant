@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+**/node_modules
+tmp
+coverage
+dist
+.env
+.env.*
+!.env.example
+*.local.json
+server-8080.log
+cloud-job-assistant-source-*.zip

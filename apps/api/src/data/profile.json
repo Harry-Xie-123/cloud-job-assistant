@@ -1,0 +1,66 @@
+{
+  "name": "Open Source Candidate",
+  "publicSignature": "Candidate",
+  "headline": "Configurable graduate technology profile for software, cloud, cyber, and technology consulting roles.",
+  "location": "Brisbane, Australia",
+  "workRights": [
+    "Configure locally"
+  ],
+  "preferredLocations": [
+    "Brisbane",
+    "Hybrid",
+    "Remote"
+  ],
+  "degrees": [
+    "Bachelor of Information Technology",
+    "Bachelor of Information Technology Honours",
+    "Master of Computer Science"
+  ],
+  "skills": [
+    "C++",
+    "Python",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "React",
+    "Node.js",
+    "Git",
+    "GitHub",
+    "AWS",
+    "EC2",
+    "S3",
+    "RDS",
+    "Lambda",
+    "IAM",
+    "VPC",
+    "Docker",
+    "GCP",
+    "MongoDB",
+    "Firebase",
+    "MySQL",
+    "SQL",
+    "Data Structures",
+    "Algorithms",
+    "OOP",
+    "System Integration",
+    "Enterprise Architecture",
+    "Process Modelling",
+    "Cloud Computing",
+    "Cloud Security",
+    "Multi-objective Optimisation",
+    "NSGA-II"
+  ],
+  "experienceSignals": [
+    "Tutored 40+ students in a third-year information systems course.",
+    "Completed AWS cloud infrastructure training covering EC2, S3, RDS, Lambda, IAM, VPC, CLI, and Well-Architected principles.",
+    "Researched matchmaking fairness in multiplayer online games using multi-objective optimisation."
+  ],
+  "targetRoles": [
+    "Graduate Software Engineer",
+    "Junior Developer",
+    "Cloud Engineer Intern",
+    "Technology Graduate",
+    "Cyber Graduate",
+    "Business Analyst Intern"
+  ]
+}
